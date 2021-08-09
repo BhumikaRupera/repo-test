@@ -1,0 +1,105 @@
+package com.thales.empmgmt.dao;
+
+import com.datastax.oss.driver.api.core.cql.*;
+import com.thales.empmgmt.dao.entities.EmployeeEntity;
+import com.thales.empmgmt.dao.qualifiers.IEmployeeDao;
+import com.thales.empmgmt.model.Employee;
+
+//import javax.inject.Inject;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
+public class EmployeeDao implements IEmployeeDao {
+//    private static Map<String, Employee> employeeDetails = new HashMap<>();
+//
+//    public static Map<String, Employee> getEmployeeDetails(){
+//        return employeeDetails;
+//    }
+
+//    @Inject
+//    private EmployeeAccessor employeeAccessor;
+//
+//    @Inject
+//    private CassandraConnection connection;
+
+    private EmployeeAccessor employeeAccessor = new EmployeeAccessor();
+    private CassandraConnection connection = new CassandraConnection();
+
+    public void prepareStatements(){
+        employeeAccessor.prepareStatements();
+    }
+
+    public EmployeeEntity getEmployeeEntity(final String tgi) {
+        final PreparedStatement preparedStatement = employeeAccessor.getSelectEmployeeByTgiPreparedStatement();
+        BoundStatement boundStatement = preparedStatement.bind().setString(EmployeeAccessor.TGI_COLUMN, tgi);
+
+        final ResultSet resultSet = connection.execute(boundStatement);
+        final Row row = resultSet.one();
+
+        if (row == null) {
+            return null;
+        } else {
+            return employeeAccessor.toEntity(row);
+        }
+    }
+
+    public void deleteEmployeeEntity(final String tgi) {
+        final PreparedStatement preparedStatement = employeeAccessor.getDeleteEmployeeByTgiPreparedStatement();
+        BoundStatement boundStatement = preparedStatement.bind().setString(EmployeeAccessor.TGI_COLUMN, tgi);
+
+        connection.execute(boundStatement);
+    }
+
+
+    public EmployeeEntity createEmployee(String tgi, String first_name, String last_name, String password, String phone_number,
+                                         String house_number, String locality, String city, String state, String designation,
+                                         String manager, LocalDate joining_date, String years_of_experience, Map<String, String>skill_set){
+        final PreparedStatement preparedStatement = employeeAccessor.getInsertEmployeePreparedStatement();
+        BoundStatement boundStatement = preparedStatement.bind()
+                .setString(EmployeeAccessor.TGI_COLUMN, tgi)
+                .setString(EmployeeAccessor.FIRST_NAME_COLUMN, first_name)
+                .setString(EmployeeAccessor.LAST_NAME_COLUMN, last_name)
+                .setString(EmployeeAccessor.PASSWORD_COLUMN, password)
+                .setString(EmployeeAccessor.PHONE_NUMBER_COLUMN, phone_number)
+                .setString(EmployeeAccessor.HOUSE_NUMBER_COLUMN, house_number)
+                .setString(EmployeeAccessor.LOCALITY_COLUMN, locality)
+                .setString(EmployeeAccessor.CITY_COLUMN, city)
+                .setString(EmployeeAccessor.STATE_COLUMN, state)
+                .setString(EmployeeAccessor.DESIGNATION_COLUMN, designation)
+                .setString(EmployeeAccessor.MANAGER_COLUMN, manager)
+                .setLocalDate(EmployeeAccessor.JOINING_DATE_COLUMN, joining_date)
+                .setString(EmployeeAccessor.YEARS_OF_EXPERIENCE_COLUMN, years_of_experience)
+                .setMap(EmployeeAccessor.SKILL_SET_COLUMN, skill_set, String.class, String.class);
+
+        connection.execute(boundStatement);
+        return getEmployeeEntity(tgi);
+    }
+
+    public EmployeeEntity updateEmployee(String tgi, String first_name, String last_name, String password, String phone_number,
+                                         String house_number, String locality, String city, String state, String designation,
+                                         String manager, LocalDate joining_date, String years_of_experience, Map<String, String>skill_set){
+
+        final PreparedStatement preparedStatement = employeeAccessor.getUpdateEmployeePreparedStatement();
+        BoundStatement boundStatement = preparedStatement.bind()
+                .setString(EmployeeAccessor.TGI_COLUMN, tgi)
+                .setString(EmployeeAccessor.FIRST_NAME_COLUMN, first_name)
+                .setString(EmployeeAccessor.LAST_NAME_COLUMN, last_name)
+                .setString(EmployeeAccessor.PASSWORD_COLUMN, password)
+                .setString(EmployeeAccessor.PHONE_NUMBER_COLUMN, phone_number)
+                .setString(EmployeeAccessor.HOUSE_NUMBER_COLUMN, house_number)
+                .setString(EmployeeAccessor.LOCALITY_COLUMN, locality)
+                .setString(EmployeeAccessor.CITY_COLUMN, city)
+                .setString(EmployeeAccessor.STATE_COLUMN, state)
+                .setString(EmployeeAccessor.DESIGNATION_COLUMN, designation)
+                .setString(EmployeeAccessor.MANAGER_COLUMN, manager)
+                .setLocalDate(EmployeeAccessor.JOINING_DATE_COLUMN, joining_date)
+                .setString(EmployeeAccessor.YEARS_OF_EXPERIENCE_COLUMN, years_of_experience)
+                .setMap(EmployeeAccessor.SKILL_SET_COLUMN, skill_set, String.class, String.class);
+
+        connection.execute(boundStatement);
+        return getEmployeeEntity(tgi);
+
+    }
+
+}
