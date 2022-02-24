@@ -6,11 +6,13 @@ import com.thales.empmgmt.service.EmployeeService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/employees")
+@ApplicationScoped
 public class EmployeeResource {
     @Inject
     EmployeeService employeeService;
@@ -29,8 +31,8 @@ public class EmployeeResource {
     @GET
     @Path("/{tgi}")
     @Produces(MediaType.APPLICATION_JSON)
-//    @ApiResponses(value = {@ApiResponse(code = 200, message = "Employee found", response = Employee.class),
-//            @ApiResponse(code = 404, message = NoSuchEmployeeException.message),})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Employee found", response = Employee.class),
+            @ApiResponse(code = 404, message = NoSuchEmployeeException.message),})
 
     public Employee getEmployeeDetails(@PathParam("tgi") String tgi) throws NoSuchEmployeeException {
 

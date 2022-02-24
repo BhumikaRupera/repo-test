@@ -1,19 +1,15 @@
 package com.thales.empmgmt.service;
 
-import com.thales.empmgmt.dao.CassandraConnection;
-import com.thales.empmgmt.dao.EmployeeDao;
 import com.thales.empmgmt.dao.entities.EmployeeEntity;
 import com.thales.empmgmt.dao.qualifiers.IEmployeeDao;
 import com.thales.empmgmt.exceptions.NoSuchEmployeeException;
 import com.thales.empmgmt.model.Employee;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
+@ApplicationScoped
 public class EmployeeService {
 //    private Map<String, Employee> employeeDetails = EmployeeDao.getEmployeeDetails();
 //    employeeDetails.put("t0251371", new Employee("all", "t0251371", "Jaipur", " ", "Bhumika", "56", new Date(), "Rupera", "Mansarovar", "Akram", "xyzabc", "7891987926", skill_set, "Rajasthan", "0y"));

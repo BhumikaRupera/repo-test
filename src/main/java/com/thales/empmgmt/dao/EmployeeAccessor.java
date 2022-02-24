@@ -13,9 +13,11 @@ import com.datastax.oss.driver.internal.core.type.codec.DateCodec;
 import com.thales.empmgmt.dao.entities.EmployeeEntity;
 import jnr.ffi.annotations.In;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.*;
 
+@ApplicationScoped
 public class EmployeeAccessor {
 
     public static final String TABLE_NAME = "employee";

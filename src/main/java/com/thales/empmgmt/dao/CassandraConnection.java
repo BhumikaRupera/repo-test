@@ -7,9 +7,11 @@ import com.datastax.oss.driver.api.core.cql.Statement;
 
 
 //import javax.servlet.ServletContextListener;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import java.net.InetSocketAddress;
 
+@ApplicationScoped
 public class CassandraConnection {
     private static String contactPoint = "10.160.165.234";
     private static int port = 9042;
