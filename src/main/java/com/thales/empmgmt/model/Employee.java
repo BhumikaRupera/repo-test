@@ -1,5 +1,7 @@
 package com.thales.empmgmt.model;
 
+import com.thales.empmgmt.util.EncryptPassword;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
@@ -139,11 +141,14 @@ public class Employee {
     }
 
     public String getPassword() {
-        return password;
+
+        return password.substring(0,20);
     }
 
     public void setPassword(String password) {
-        this.password = password;
+
+        EncryptPassword encryptPassword = new EncryptPassword();
+        this.password =  encryptPassword.encryptString(password);
     }
 
     public String getPhoneNumber() {

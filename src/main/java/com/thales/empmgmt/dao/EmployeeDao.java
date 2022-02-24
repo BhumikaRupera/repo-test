@@ -3,28 +3,22 @@ package com.thales.empmgmt.dao;
 import com.datastax.oss.driver.api.core.cql.*;
 import com.thales.empmgmt.dao.entities.EmployeeEntity;
 import com.thales.empmgmt.dao.qualifiers.IEmployeeDao;
-import com.thales.empmgmt.model.Employee;
 
-//import javax.inject.Inject;
+
+import javax.inject.Inject;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
 
 public class EmployeeDao implements IEmployeeDao {
-//    private static Map<String, Employee> employeeDetails = new HashMap<>();
-//
-//    public static Map<String, Employee> getEmployeeDetails(){
-//        return employeeDetails;
-//    }
 
-//    @Inject
-//    private EmployeeAccessor employeeAccessor;
-//
-//    @Inject
-//    private CassandraConnection connection;
+    @Inject
+    private EmployeeAccessor employeeAccessor;
 
-    private EmployeeAccessor employeeAccessor = new EmployeeAccessor();
-    private CassandraConnection connection = new CassandraConnection();
+    @Inject
+    private CassandraConnection connection;
+
+//    private EmployeeAccessor employeeAccessor = new EmployeeAccessor();
+//    private CassandraConnection connection = new CassandraConnection();
 
     public void prepareStatements(){
         employeeAccessor.prepareStatements();

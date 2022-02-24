@@ -11,7 +11,9 @@ import com.datastax.oss.driver.api.querybuilder.select.Select;
 import com.datastax.oss.driver.api.querybuilder.update.Update;
 import com.datastax.oss.driver.internal.core.type.codec.DateCodec;
 import com.thales.empmgmt.dao.entities.EmployeeEntity;
+import jnr.ffi.annotations.In;
 
+import javax.inject.Inject;
 import java.util.*;
 
 public class EmployeeAccessor {
@@ -38,7 +40,9 @@ public class EmployeeAccessor {
     private PreparedStatement insertEmployee;
     private PreparedStatement updateEmployee;
 
-    CassandraConnection connection = new CassandraConnection();
+    @Inject
+    CassandraConnection connection;
+//    CassandraConnection connection = new CassandraConnection();
     CqlSession session = connection.getCqlSession();
     private String bucketValue = "all";
 

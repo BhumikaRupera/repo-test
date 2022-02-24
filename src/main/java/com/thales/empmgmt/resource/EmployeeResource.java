@@ -6,12 +6,16 @@ import com.thales.empmgmt.service.EmployeeService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/employees")
 public class EmployeeResource {
-    EmployeeService employeeService = new EmployeeService();
+    @Inject
+    EmployeeService employeeService;
+
+//    EmployeeService employeeService = new EmployeeService();
 
 
     @POST

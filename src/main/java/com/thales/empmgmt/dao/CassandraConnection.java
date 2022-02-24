@@ -7,6 +7,7 @@ import com.datastax.oss.driver.api.core.cql.Statement;
 
 
 //import javax.servlet.ServletContextListener;
+import javax.enterprise.inject.Produces;
 import java.net.InetSocketAddress;
 
 public class CassandraConnection {
@@ -16,7 +17,7 @@ public class CassandraConnection {
     private static String dataCenter = "datacenter1";
     public static CqlSession session;
 
-
+    @Produces
     public void createCqlSession() {
 
         try {
