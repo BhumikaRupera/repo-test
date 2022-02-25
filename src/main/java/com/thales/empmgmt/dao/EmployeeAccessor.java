@@ -44,7 +44,6 @@ public class EmployeeAccessor {
 
     @Inject
     CassandraConnection connection;
-//    CassandraConnection connection = new CassandraConnection();
     CqlSession session = connection.getCqlSession();
     private String bucketValue = "all";
 

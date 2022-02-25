@@ -5,7 +5,6 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.cql.Statement;
 
-
 //import javax.servlet.ServletContextListener;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

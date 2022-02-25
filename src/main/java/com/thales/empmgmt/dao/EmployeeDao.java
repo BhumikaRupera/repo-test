@@ -18,9 +18,6 @@ public class EmployeeDao implements IEmployeeDao {
     @Inject
     private CassandraConnection connection;
 
-//    private EmployeeAccessor employeeAccessor = new EmployeeAccessor();
-//    private CassandraConnection connection = new CassandraConnection();
-
     public void prepareStatements(){
         employeeAccessor.prepareStatements();
     }
